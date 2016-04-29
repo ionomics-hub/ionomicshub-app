@@ -17,7 +17,8 @@
     };
 
     var showResults = function( json ) {
-		$( '#img', appContext ).hide();
+		
+		$('#progress_region', appContext).addClass('hidden');
 		$( '#allresults', appContext ).show();
 		$( '#results', appContext ).show();
       // show error message for invalid object
@@ -30,10 +31,10 @@
 		 $( '.results', appContext ).html( '<div class="alert alert-danger">No data or invalid response!</div>' );
         return;
 	}
-	console.log('data received!');
+	//console.log('data received!');
 	//console.log(JSON.stringify(data));
 	var traydata = [];
-	console.log(data.length);
+	//console.log(data.length);
 	var prevTray = 0;
 	var trayCount = 0;
 	//var tubeCount = 0;
@@ -55,7 +56,7 @@
 			}
 	}
 	document.getElementById("wt_traycount").value = trayCount;
-	console.log(traydata);
+	//console.log(traydata);
 	var mytraydata = {
 		"data": traydata
 	};
@@ -74,7 +75,7 @@
 	}else{
 		document.getElementById("prev").removeAttribute("disabled");
 	}
-	console.log('trayCount: '+ trayCount);
+	//console.log('trayCount: '+ trayCount);
 	if(trayCount < curlimit){
 		document.getElementById("next").setAttribute("disabled","disabled");
 	}else{
@@ -83,7 +84,7 @@
 	
 		$( 'button[name=prev]', appContext ).on('click', function( e ) {
 			e.preventDefault();
-			$( '#img', appContext ).show();
+			$('#progress_region', appContext).removeClass('hidden');
 			$( '#results', appContext ).hide();
 			var atgnum = document.getElementById("wt_atgnum").value;
 			var skip = Number(document.getElementById("wt_skip").value);
@@ -92,7 +93,7 @@
 			if(skip < 0){
 				skip = 0;
 			}
-			console.log('New skip: '+ skip);
+			//console.log('New skip: '+ skip);
 			document.getElementById("wt_skip").value = skip;
 			var query = {
 			  ATGNum: atgnum,
@@ -106,13 +107,13 @@
 	
 		$( 'button[name=next]', appContext ).on('click', function( e ) {
 			e.preventDefault();
-			$( '#img', appContext ).show();
+			$('#progress_region', appContext).removeClass('hidden');
 			$( '#results', appContext ).hide();
 			var atgnum = document.getElementById("wt_atgnum").value;
 			var skip = Number(document.getElementById("wt_skip").value);
 			var limit = Number(document.getElementById("wt_limit").value);
 			skip += limit;
-			console.log('New skip: '+ skip);
+			//console.log('New skip: '+ skip);
 			document.getElementById("wt_skip").value = skip;
 			// Add condition here!
 			var query = {
@@ -135,7 +136,8 @@
 	  
     $( 'form', appContext ).on('submit', function(e) {
       e.preventDefault();
-	  $( '#img', appContext ).show();
+	  // start progress bar and tab spinners
+	  $('#progress_region', appContext).removeClass('hidden');
 	  $( '#allresults', appContext ).hide();
       // showResults( $(this).serializeArray() );
 
